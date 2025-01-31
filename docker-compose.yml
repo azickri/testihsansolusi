@@ -1,6 +1,20 @@
 version: '3.3'
 services:
-  postgres:
+  app:
+    build: .
+    container_name: testihsansolusi
+    depends_on:
+      - db
+    environment:
+      - APPLICATION_PORT=5001
+      - POSTGRESQL_USER=user
+      - POSTGRESQL_DATABASE_NAME=testihsansolusi
+      - POSTGRESQL_PASSWORD=password
+      - POSTGRESQL_HOST=db
+    ports:
+      - '5001:5001'
+
+  db:
     image: postgres
     restart: always
     ports:
@@ -8,7 +22,7 @@ services:
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: local
+      POSTGRES_DB: testihsansolusi
 
 networks:
   api_net:

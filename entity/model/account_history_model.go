@@ -1,13 +1,15 @@
 package model
 
-import "time"
+import (
+	"gorm.io/gorm"
+)
 
-type AccountHistoryModel struct {
-	ID             int       `json:"id" db:"id"`
-	AccountID      int       `json:"account_id" db:"account_id"`
-	Type           string    `json:"type" db:"type"`
-	Nominal        int       `json:"nominal" db:"nominal"`
-	CurrentBalance int       `json:"current_balance" db:"current_balance"`
-	NewBalance     int       `json:"new_balance" bson:"new_balance"`
-	CreatedAt      time.Time `json:"created_at" db:"created_at"`
+type AccountHistory struct {
+	gorm.Model
+	AccountID      uint    `json:"account_id" gorm:"not null;column:account_id"`
+	Type           string  `json:"type" gorm:"type:text;column:type"`
+	Nominal        int64   `json:"nominal" gorm:"type:bigint;column:nominal"`
+	CurrentBalance int64   `json:"current_balance" gorm:"type:bigint;column:current_balance"`
+	NewBalance     int64   `json:"new_balance" bson:"type:bigint;column:new_balance"`
+	Account        Account `gorm:"foreignKey:AccountID;references:ID;onDelete:CASCADE"`
 }

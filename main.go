@@ -27,5 +27,6 @@ func initPostgreSQL() *database.PostgreSQL {
 	}
 
 	postgressql.Connect()
+	postgressql.Migrate()
 	return &postgressql
 }

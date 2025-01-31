@@ -1,13 +1,14 @@
 package model
 
-import "time"
+import (
+	"gorm.io/gorm"
+)
 
 type Account struct {
-	ID        int       `json:"id" db:"id"`
-	Name      string    `json:"name" db:"name"`
-	NIK       string    `json:"nik" db:"nik"`
-	Phone     string    `json:"phone" db:"phone"`
-	Number    string    `json:"number" db:"number"`
-	Balance   int64     `json:"balance" db:"balance"`
-	CreatedAt time.Time `json:"created_at" db:"created_at"`
+	gorm.Model
+	Name    string `json:"name" gorm:"type:text;column:name"`
+	NIK     string `json:"nik" gorm:"type:text;unique;column:nik"`
+	Phone   string `json:"phone" gorm:"type:text;unique;column:phone"`
+	Number  string `json:"number" gorm:"type:text;unique;column:number"`
+	Balance int64  `json:"balance" gorm:"type:bigint;column:balance"`
 }
